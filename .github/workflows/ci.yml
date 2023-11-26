@@ -1,0 +1,29 @@
+name: AVL CI
+on: [push]
+jobs:
+  build-plotlib:
+    strategy:
+      matrix:
+        prescision: [sp, dp]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        arch: [x64, aarch64]
+        toolchain:
+          - {compiler: gcc, version: 15}
+          - {compiler: intel-classic, version: "2021.10"}
+    steps:
+      - uses: actions/checkout@v4
+        id: checkout-repo
+
+      - uses: fortran-lang/setup-fortran@v1
+        id: setup-fortran
+        with:
+          compiler: ${{ matrix.toolchain.compiler }}
+          version: ${{ matrix.toolchain.version }}
+        env:
+          BUILD_FOR: ${{ matrix.arch }}
+          FLONUM: ${{ matrix.prescision }}
+
+      - name: compile plotlib
+        run: |
+          cd plotlib
+          make
