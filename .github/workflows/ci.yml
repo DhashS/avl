@@ -28,4 +28,4 @@ jobs:
       - name: compile plotlib
         run: |
           cd plotlib
-          make $FC FC=$FC CC=$CC PLTLIB=libPlt_$FC_$FLONUM_$BUILDFOR_$OS_$ARCH.a
+          echo "$FC FC=$FC CC=$CC PLTLIB=libPlt_$FC_$FLONUM_$BUILDFOR_$OS_$ARCH.a"
