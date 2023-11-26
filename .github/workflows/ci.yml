@@ -28,4 +28,4 @@ jobs:
       - name: compile plotlib
         run: |
           cd plotlib
-          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs make $FC FC=$FC CC=$CC PLTLIB=
+          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} echo "make $FC FC=$FC CC=$CC PLTLIB={}"
