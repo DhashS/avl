@@ -23,14 +23,37 @@ jobs:
         with:
           compiler: ${{ matrix.toolchain.compiler }}
           version: ${{ matrix.toolchain.version }}
+      - name:
+        id: cross-compile-toolchain
+        env:
+          OS: ${{ matrix.os }}
+          BUILDFOR: ${{ matrix.arch }}
+        run: |
+          if [ $OS = "windows" ]; then
+            if [ $BUILDFOR = "x86_64" ]; then
+              sudo apt install gfortran-mingw-w64-x86-64
+            fi
+          elif [ $OS = "macos" ]; then
+            echo "not implemented"
+          elif [ $OS = "linux" ]; then
+            if [ $BUILDFOR = "arm64" ]; then
+              sudo apt install gfortran-aarch64-linux-gnu
+            fi
+          fi
 
       - name: compile plotlib
         run: |
           cd plotlib
+          if [[ $FC == "gfortran" ]]; then
+            export FC_NAME="gfortran"
+          elif [[ $FC == "ifort" ]]; then
+            export FC_NAME="ifort"
+          fi
+          which $FC
           if [ $FLONUM = "dp" ]; then
-            printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC $FC $FLONUM $OS $BUILDFOR | xargs make
+            printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC $FLONUM $OS $BUILDFOR | xargs make
           else
-            printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC $FC $FLONUM $OS $BUILDFOR | xargs make
+            printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC $FLONUM $OS $BUILDFOR | xargs make
           fi
         env:
           BUILDFOR: ${{ matrix.arch }}
