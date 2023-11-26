@@ -7,7 +7,7 @@ jobs:
       matrix:
         prescision: [sp, dp]
         os: [linux, macos, windows]
-        arch: [x64, arm64]
+        arch: [x86_64, arm64]
         toolchain:
           - {compiler: gcc, version: 11}
           - {compiler: intel-classic, version: "2021.10"}
@@ -27,7 +27,7 @@ jobs:
       - name: compile plotlib
         run: |
           cd plotlib
-          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} make $FC FC=$FC CC=$CC PLTLIB={}
+          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} make $FC FC=$FC CC=$CC MARCH=-m$BUILDFOR PLTLIB={}
         env:
           BUILDFOR: ${{ matrix.arch }}
           FLONUM: ${{ matrix.prescision }}
