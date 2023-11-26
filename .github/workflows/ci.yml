@@ -77,6 +77,7 @@ jobs:
             fi
           fi
           env
+          cp /usr/include/X11/Xlib.h .
           if [ $FLONUM = "dp" ]; then
             printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           else
