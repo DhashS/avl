@@ -39,5 +39,5 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: libPlt_${{ matrix.toolchain.compiler }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.buildfor }}.a
-          path: plotlib/libPlt_${{ matrix.toolchain.compiler }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
+          name: libPlt_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.buildfor }}.a
+          path: plotlib/libPlt_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
