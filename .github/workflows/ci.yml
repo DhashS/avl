@@ -37,6 +37,7 @@ jobs:
             if [ $BUILDFOR = "x86_64" ]; then
               if [ $COMPILER = "gcc" ]; then
                 sudo apt install gfortran-mingw-w64-x86-64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
+                sudo cp -r /usr/include/X11 /usr/lib/gcc/x86_64-w64-mingw32/10-win32/include
               fi
             fi
           elif [ $OS = "macos" ]; then
@@ -76,9 +77,6 @@ jobs:
               fi
             fi
           fi
-          env
-          mkdir X11
-          cp /usr/include/X11/Xlib.h X11/
           if [ $FLONUM = "dp" ]; then
             printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           else
