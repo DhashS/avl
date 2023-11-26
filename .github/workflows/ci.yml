@@ -36,3 +36,8 @@ jobs:
           BUILDFOR: ${{ matrix.arch }}
           FLONUM: ${{ matrix.prescision }}
           OS: ${{ matrix.os }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: libPlt_${{ matrix.toolchain.compiler }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.buildfor }}.a
+          path: plotlib/libPlt_${{ matrix.toolchain.compiler }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.buildfor }}.a
