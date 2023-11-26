@@ -77,9 +77,9 @@ jobs:
           fi
           env
           if [ $FLONUM = "dp" ]; then
-            printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC $FLONUM $OS $BUILDFOR | xargs make
+            printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           else
-            printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC $FLONUM $OS $BUILDFOR | xargs make
+            printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           fi
         env:
           BUILDFOR: ${{ matrix.arch }}
