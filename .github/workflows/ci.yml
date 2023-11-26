@@ -2,6 +2,7 @@ name: AVL CI
 on: [push]
 jobs:
   build-plotlib:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         prescision: [sp, dp]
