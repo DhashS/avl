@@ -85,6 +85,7 @@ jobs:
           BUILDFOR: ${{ matrix.arch }}
           FLONUM: ${{ matrix.prescision }}
           OS: ${{ matrix.os }}
+          COMPILER: ${{ matrix.toolchain.compiler }}
 
       - uses: actions/upload-artifact@v3
         with:
