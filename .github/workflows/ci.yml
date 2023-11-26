@@ -32,6 +32,7 @@ jobs:
           COMPILER: ${{ matrix.toolchain.compiler }}
         run: |
           set +x
+          sudo apt install libx11-dev
           if [ $OS = "windows" ]; then
             if [ $BUILDFOR = "x86_64" ]; then
               if [ $COMPILER = "gcc" ]; then
