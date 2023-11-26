@@ -27,7 +27,7 @@ jobs:
       - name: compile plotlib
         run: |
           cd plotlib
-          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} make $FC FC=$FC CC=$CC MARCH=-m$BUILDFOR PLTLIB={}
+          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} make $FC FC=$FC CC=$CC MARCH=-march=$BUILDFOR PLTLIB={}
         env:
           BUILDFOR: ${{ matrix.arch }}
           FLONUM: ${{ matrix.prescision }}
