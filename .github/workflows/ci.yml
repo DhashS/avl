@@ -29,22 +29,28 @@ jobs:
         env:
           OS: ${{ matrix.os }}
           BUILDFOR: ${{ matrix.arch }}
+          COMPILER: ${{ matrix.toolchain.compiler }}
         run: |
+          set +x
           if [ $OS = "windows" ]; then
             if [ $BUILDFOR = "x86_64" ]; then
-              sudo apt install gfortran-mingw-w64-x86-64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
-              export FC=$(which x86_64-w64-mingw32-gfortran)
-              export CC=$(which x86_64-w64-mingw32-gcc)
-              export CXX=$(which x86_64-w64-mingw32-g++)
+              if [ $COMPILER = "gcc" ]; then
+                sudo apt install gfortran-mingw-w64-x86-64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
+                export FC=$(which x86_64-w64-mingw32-gfortran)
+                export CC=$(which x86_64-w64-mingw32-gcc)
+                export CXX=$(which x86_64-w64-mingw32-g++)
+              fi
             fi
           elif [ $OS = "macos" ]; then
             echo "not implemented"
           elif [ $OS = "linux" ]; then
             if [ $BUILDFOR = "arm64" ]; then
-              sudo apt install gfortran-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
-              export FC=$(which aarch64-linux-gnu-gfortran)
-              export CC=$(which aarch64-linux-gnu-gcc)
-              export CXX=$(which aarch64-linux-gnu-g++)
+              if [ $COMPILER = "gcc" ]; then
+                sudo apt install gfortran-aarch64-linux-gnu gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+                export FC=$(which aarch64-linux-gnu-gfortran)
+                export CC=$(which aarch64-linux-gnu-gcc)
+                export CXX=$(which aarch64-linux-gnu-g++)
+              fi
             fi
           fi
 
@@ -56,6 +62,7 @@ jobs:
           elif [[ $FC == "ifort" ]]; then
             export FC_NAME="ifort"
           fi
+          env
           if [ $FLONUM = "dp" ]; then
             printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC $FLONUM $OS $BUILDFOR | xargs make
           else
