@@ -20,12 +20,13 @@ jobs:
         with:
           compiler: ${{ matrix.toolchain.compiler }}
           version: ${{ matrix.toolchain.version }}
-        env:
-          BUILDFOR: ${{ matrix.arch }}
-          FLONUM: ${{ matrix.prescision }}
-          OS: ${{ matrix.os }}
 
       - name: compile plotlib
         run: |
           cd plotlib
+          env
           printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} echo "make $FC FC=$FC CC=$CC PLTLIB={}"
+        env:
+          BUILDFOR: ${{ matrix.arch }}
+          FLONUM: ${{ matrix.prescision }}
+          OS: ${{ matrix.os }}
