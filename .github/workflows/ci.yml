@@ -27,7 +27,11 @@ jobs:
       - name: compile plotlib
         run: |
           cd plotlib
-          printf "libPlt_%s_%s_%s_%s.a" $FC $FLONUM $OS $BUILDFOR | xargs -I {} make $FC FC=$FC CC=$CC MARCH=-march=$BUILDFOR PLTLIB={}
+          if [ $FLONUM = "dp" ]; then
+            printf "%sDP FC=$FC CC=$CC MARCH=-march=$BUILDFOR PLTLIB=libPlt_%s_%s_%s_%s.a" $FC $FC $FLONUM $OS $BUILDFOR | xargs make
+          else
+            printf "%s FC=$FC CC=$CC MARCH=-march=$BUILDFRO PLTLIB=libPlt_%s_%s_%s_%s.a" $FC $FC $FLONUM $OS $BUILDFOR | xargs make
+          fi
         env:
           BUILDFOR: ${{ matrix.arch }}
           FLONUM: ${{ matrix.prescision }}
