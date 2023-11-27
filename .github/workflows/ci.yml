@@ -82,6 +82,13 @@ jobs:
           else
             printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           fi
+          cd ../eispack
+          if [ $FLONUM = "dp" ]; then
+            printf "eispack_%s_%s_%s_%s.a FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispackDP.f BIN=eispackDP.o DP=-r8" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
+          else
+            printf "eispack_%s_%s_%s_%s.a FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispack.f BIN=eispack.o" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
+          fi
+
         env:
           BUILDFOR: ${{ matrix.arch }}
           FLONUM: ${{ matrix.prescision }}
@@ -91,4 +98,11 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: libPlt_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
-          path: plotlib/libPlt_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
+          path: |
+            eispack/eispack_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: eispack_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
+          path: |
+            eispack/eispack_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
