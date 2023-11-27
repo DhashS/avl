@@ -34,10 +34,10 @@ jobs:
           set +x
           sudo apt install libx11-dev
           if [ $OS = "windows" ]; then
-            sudo cp -r /usr/include/X11 /usr/lib/gcc/x86_64-w64-mingw32/10-win32/include
             if [ $BUILDFOR = "x86_64" ]; then
               if [ $COMPILER = "gcc" ]; then
                 sudo apt install gfortran-mingw-w64-x86-64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
+                sudo cp -r /usr/include/X11 /usr/lib/gcc/x86_64-w64-mingw32/10-win32/include
               fi
             fi
           elif [ $OS = "macos" ]; then
