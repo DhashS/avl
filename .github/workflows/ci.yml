@@ -84,9 +84,9 @@ jobs:
           fi
           cd ../eispack
           if [ $FLONUM = "dp" ]; then
-            printf "eispack_%s_%s_%s_%s.a FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispackDP.f BIN=eispackDP.o DP=-r8" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
+            printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispackDP.f BIN=eispackDP.o DP=-r8" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           else
-            printf "eispack_%s_%s_%s_%s.a FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispack.f BIN=eispack.o" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
+            printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispack.f BIN=eispack.o" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           fi
 
         env:
