@@ -123,6 +123,7 @@ $(SRC)/AVL.INC: $(SRC)/AINDEX.INC
 
 avl: $(AOBJS) $(MATRIX)
 	$(FC) -o avl $(AOBJS) $(MATRIX) $(ALIBS) $(MLIBS) $(PLTOBJ) $(EIGOBJ) $(PLTLIB) $(LFLG)
+    ls
 	$(INSTALLCMD) avl $(BINDIR)
 
 dtest: dtest.o
