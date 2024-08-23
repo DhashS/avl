@@ -52,6 +52,7 @@ jobs:
 
       - name: compile plotlib
         run: |
+          set +x
           cd plotlib
           if [[ $FC == "gfortran" ]]; then
             export FC_NAME="gfortran"
