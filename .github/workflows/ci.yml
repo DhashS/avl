@@ -96,15 +96,15 @@ jobs:
           if [ $OS = "windows" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.mingw avl
             cd output
-            ls
+            printf "avl_%s_%s_%s_%s" | xargs mv avl
           elif [ $FC = "gfortran" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.gfortran avl
             cd output
-            ls
+            printf "avl_%s_%s_%s_%s" | xargs mv avl
           elif [ $FC = "ifort" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.ifort avl
             cd output
-            ls
+            printf "avl_%s_%s_%s_%s" | xargs mv avl
           fi
 
 
@@ -125,3 +125,9 @@ jobs:
           name: eispack_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
           path: |
             eispack/eispack_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: avl_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}.a
+        path: |
+            bin/output/avl_${{ env.FC }}_${{ matrix.prescision }}_${{ matrix.os }}_${{ matrix.arch }}
