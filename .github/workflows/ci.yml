@@ -95,10 +95,16 @@ jobs:
           mkdir output
           if [ $OS = "windows" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.mingw avl
+            cd output
+            ls
           elif [ $FC = "gfortran" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.gfortran avl
+            cd output
+            ls
           elif [ $FC = "ifort" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.ifort avl
+            cd output
+            ls
           fi
 
 
