@@ -80,9 +80,9 @@ jobs:
           fi
           if [ $OS = "windows" ]; then
             if [ $FLONUM = "dp" ]; then
-              printf "%sDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a DP=\"-fdefault-real-8\"" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
+              printf "mingwDP FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a DP=\"-fdefault-real-8\"" $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
             else
-              printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a DP=\"\"" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
+              printf "mingw FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a DP=\"\"" $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
             fi
           else
             if [ $FLONUM = "dp" ]; then
@@ -94,9 +94,9 @@ jobs:
           export PLTOBJ=$(printf "libPlt_%s_%s_%s_%s.a" $FC_NAME $FLONUM $OS $BUILDFOR)
           cd ../eispack
           if [ $FLONUM = "dp" ]; then
-            printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispackDP.f BIN=eispackDP.o DP=\"-fdefault-real-8\"" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
+            printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispackDP.f BIN=eispackDP.o DP=\"-fdefault-real-8\"" $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
           else
-            printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispack.f BIN=eispack.o D=\"\"" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
+            printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispack.f BIN=eispack.o D=\"\"" $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
           fi
           export EIGOBJ=$(printf "eispack_%s_%s_%s_%s.a" $FC_NAME $FLONUM $OS $BUILDFOR)
           cd ../bin
