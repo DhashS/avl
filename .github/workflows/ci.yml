@@ -82,12 +82,24 @@ jobs:
           else
             printf "%s FC=$FC CC=$CC PLTLIB=libPlt_%s_%s_%s_%s.a DP=\"\"" $FC_NAME $FC_NAME $FLONUM $OS $BUILDFOR | xargs make
           fi
+          export PLTOBJ="libPlt_$FC_NAME_$FLONUM_$OS_$BUILDFOR.a"
           cd ../eispack
           if [ $FLONUM = "dp" ]; then
             printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispackDP.f BIN=eispackDP.o DP=\"-fdefault-real-8\"" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
           else
             printf "FC=$FC CC=$CC EISLIB=eispack_%s_%s_%s_%s.a SRC=eispack.f BIN=eispack.o D=\"\"" $FC_NAME $FLONUM $OS $BUILDFOR $FC_NAME $FLONUM $OS $BUILDFOR | xargs make -f Makefile.mingw
           fi
+          export EIGOBJ="eispack_$FC_NAME_$FLONUM_$OS_$BUILDFOR.a"
+          cd ../bin
+          if [ $OS = "windows" ]; then
+            printf "FC=$FC CC=$CC PLTOBJ=$PLTOBJ EIGOBJ=$EIGOBJ" | xargs make -f Makefile.mingw
+          fi
+          elif [ $FC = "gfortran" ]; then
+            printf "FC=$FC CC=$CC PLTOBJ=$PLTOBJ EIGOBJ=$EIGOBJ" | xargs make -f Makefile.gfortran
+          elif [ $FC = "ifort" ]; then
+            printf "FC=$FC CC=$CC PLTOBJ=$PLTOBJ EIGOBJ=$EIGOBJ" | xargs make -f Makefile.ifort
+          fi
+
 
         env:
           BUILDFOR: ${{ matrix.arch }}
