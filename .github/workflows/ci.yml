@@ -92,11 +92,11 @@ jobs:
           export EIGOBJ=$(printf "eispack_%s_%s_%s_%s.a" $FC_NAME $FLONUM $OS $BUILDFOR)
           cd ../bin
           if [ $OS = "windows" ]; then
-            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.mingw
+            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.mingw avl
           elif [ $FC = "gfortran" ]; then
-            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.gfortran
+            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.gfortran avl
           elif [ $FC = "ifort" ]; then
-            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.ifort
+            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.ifort avl
           fi
 
 
