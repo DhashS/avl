@@ -92,12 +92,13 @@ jobs:
           fi
           export EIGOBJ=$(printf "eispack_%s_%s_%s_%s.a" $FC_NAME $FLONUM $OS $BUILDFOR)
           cd ../bin
+          mkdir output
           if [ $OS = "windows" ]; then
-            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.mingw avl
+            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.mingw avl
           elif [ $FC = "gfortran" ]; then
-            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.gfortran avl
+            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.gfortran avl
           elif [ $FC = "ifort" ]; then
-            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ" | xargs make -f Makefile.ifort avl
+            printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.ifort avl
           fi
 
 
