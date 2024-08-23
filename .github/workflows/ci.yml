@@ -93,7 +93,6 @@ jobs:
           cd ../bin
           if [ $OS = "windows" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=$PLTOBJ EIGOBJ=$EIGOBJ" | xargs make -f Makefile.mingw
-          fi
           elif [ $FC = "gfortran" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=$PLTOBJ EIGOBJ=$EIGOBJ" | xargs make -f Makefile.gfortran
           elif [ $FC = "ifort" ]; then
