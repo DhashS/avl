@@ -96,17 +96,17 @@ jobs:
           if [ $OS = "windows" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.mingw avl
             cd output
-            printf "avl_%s_%s_%s_%s" | xargs mv avl
+            printf "avl_%s_%s_%s_%s" $FC_NAME $FLONUM $OS $BUILDFOR | xargs mv avl
             ls
           elif [ $FC = "gfortran" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.gfortran avl
             cd output
-            printf "avl_%s_%s_%s_%s" | xargs mv avl
+            printf "avl_%s_%s_%s_%s" $FC_NAME $FLONUM $OS $BUILDFOR | xargs mv avl
             ls
           elif [ $FC = "ifort" ]; then
             printf "FC=$FC CC=$CC PLTOBJ=../plotlib/$PLTOBJ EIGOBJ=../eispack/$EIGOBJ BINDIR=./output" | xargs make -f Makefile.ifort avl
             cd output
-            printf "avl_%s_%s_%s_%s" | xargs mv avl
+            printf "avl_%s_%s_%s_%s" $FC_NAME $FLONUM $OS $BUILDFOR | xargs mv avl
             ls
           fi
 
